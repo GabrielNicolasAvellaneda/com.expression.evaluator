@@ -19,7 +19,7 @@ public class Expression {
 			throw new ExpressionParseException();
 		}
 		
-		this.expression = expression;
+		this.expression = expression.trim();
 	}
 	
 	public int evaluate() throws ExpressionParseException {

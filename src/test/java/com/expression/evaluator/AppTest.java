@@ -30,7 +30,7 @@ public class AppTest
     @Test
     public void Should_Evaluate_A_Single_Number_Expression() throws ExpressionParseException {
     	
-    	final Expression exp = new Expression("1");
+    	final Expression exp = new Expression("  1   ");
     	
     	int result = exp.evaluate();
     	
@@ -40,7 +40,6 @@ public class AppTest
     	
     	result = exp.evaluate(); 
     	Assert.assertEquals(2,  result);
-    	
     }
     
     

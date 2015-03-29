@@ -22,8 +22,16 @@ public class Expression {
 		this.expression = expression;
 	}
 	
-	public int evaluate() {
-		return 1;
+	public int evaluate() throws ExpressionParseException {
+		
+		try {
+			final int result = Integer.parseInt(expression);
+			return result;
+		}
+		catch(NumberFormatException ex) {
+			throw new ExpressionParseException(ex);
+		}
+		
 	}
 	
 	public static char chartAt(int index, String expression) {

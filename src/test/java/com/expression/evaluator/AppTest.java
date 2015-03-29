@@ -24,6 +24,7 @@ public class AppTest
     	final Expression exp = new Expression("");
     	
     	exp.evaluate();
+    	exp.setExpression("                        ");
     }
 
     @Test
@@ -31,9 +32,15 @@ public class AppTest
     	
     	final Expression exp = new Expression("1");
     	
-    	final int result = exp.evaluate();
+    	int result = exp.evaluate();
     	
     	Assert.assertEquals(1, result);
+    	
+    	exp.setExpression("2");
+    	
+    	result = exp.evaluate(); 
+    	Assert.assertEquals(2,  result);
+    	
     }
     
     

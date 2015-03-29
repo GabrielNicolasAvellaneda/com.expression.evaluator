@@ -42,6 +42,14 @@ public class AppTest
     	Assert.assertEquals(2,  result);
     }
     
-    
+    @Test
+    public void Should_Evaluate_A_Sum_Expression() throws ExpressionParseException {
+    	
+    	final Expression exp = new Expression("1 + 3");
+    	
+    	final int result = exp.evaluate();
+    	
+    	Assert.assertEquals(4,  result);
+    }
     
 }

@@ -52,4 +52,15 @@ public class AppTest
     	Assert.assertEquals(4,  result);
     }
     
+    @Test
+    public void Should_evaluate_A_Difference_Expression() throws ExpressionParseException {
+    	
+    	final Expression exp = new Expression("1 - 3");
+    	
+    	final int result = exp.evaluate();
+    	
+    	Assert.assertEquals(-2,  result);
+    }
+    
+    
 }

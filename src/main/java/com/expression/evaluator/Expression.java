@@ -22,10 +22,10 @@ public class Expression {
 		this.expression = expression.trim();
 	}
 	
+	
 	public int evaluate() throws ExpressionParseException {
 		
 		try {
-			
 			final int index = expression.indexOf("+");
 			if (index != -1) {
 				final String leftOperandString = Expression.substring(0, index-1, expression).trim();
@@ -35,6 +35,17 @@ public class Expression {
 				final int b = Integer.parseInt(rightOperandString);
 				
 				return a + b;
+			}
+			
+			final int indexDiff = expression.indexOf("-");
+			if (indexDiff != -1) {
+				final String leftOperandString = Expression.substring(0, indexDiff-1, expression).trim();
+				final String rightOperandString = Expression.substring(indexDiff+1, expression).trim();
+				
+				final int a = Integer.parseInt(leftOperandString);
+				final int b = Integer.parseInt(rightOperandString);
+				
+				return a - b;
 			}
 			
 			final int result = Integer.parseInt(expression);

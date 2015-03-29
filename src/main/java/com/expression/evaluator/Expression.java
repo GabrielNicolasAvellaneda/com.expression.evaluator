@@ -22,30 +22,64 @@ public class Expression {
 		this.expression = expression.trim();
 	}
 	
+	public class BinaryOperatorInfo {
+		
+		char operator = '\0';
+		int index = -1;
+		
+		public BinaryOperatorInfo(char operator, int index) {
+			this.operator = operator;
+			this.index = index;
+		}
+		
+		public int getIndex() {
+			return index;
+		}
+		
+		public char getOperator() {
+			return operator;
+		}
+	}
+	
+	
+	public BinaryOperatorInfo getBinaryOperatorInfo(String expression) {
+		
+		char sumOperator = '+';
+		char diffOperator = '-';
+		
+		int index = expression.indexOf(sumOperator); 
+		if (index != -1) {
+			return new BinaryOperatorInfo(sumOperator, index);
+			
+		} 
+		else 
+		{
+			 index = expression.indexOf(diffOperator);
+			 if (index != -1) {
+				 return new BinaryOperatorInfo(diffOperator, index);
+			 }
+			
+		}
+		return null;
+	}
+	
 	
 	public int evaluate() throws ExpressionParseException {
 		
 		try {
-			final int index = expression.indexOf("+");
-			if (index != -1) {
-				final String leftOperandString = Expression.substring(0, index-1, expression).trim();
-				final String rightOperandString = Expression.substring(index+1, expression).trim();
+			final BinaryOperatorInfo operator = getBinaryOperatorInfo(expression);
+			if (operator != null) {
+				final String leftOperandString = Expression.substring(0, operator.getIndex()-1, expression).trim();
+				final String rightOperandString = Expression.substring(operator.getIndex()+1, expression).trim();
 				
 				final int a = Integer.parseInt(leftOperandString);
 				final int b = Integer.parseInt(rightOperandString);
 				
-				return a + b;
-			}
-			
-			final int indexDiff = expression.indexOf("-");
-			if (indexDiff != -1) {
-				final String leftOperandString = Expression.substring(0, indexDiff-1, expression).trim();
-				final String rightOperandString = Expression.substring(indexDiff+1, expression).trim();
-				
-				final int a = Integer.parseInt(leftOperandString);
-				final int b = Integer.parseInt(rightOperandString);
-				
-				return a - b;
+				if (operator.getOperator() == '+') {
+					return a + b;
+				} else {
+					return a - b;
+				}
 			}
 			
 			final int result = Integer.parseInt(expression);

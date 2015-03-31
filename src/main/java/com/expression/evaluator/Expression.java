@@ -1,5 +1,8 @@
 package com.expression.evaluator;
 
+
+
+
 public class Expression {
 	
 	private String expression = ""; 
@@ -64,26 +67,45 @@ public class Expression {
 	}
 	
 	
+	
+	public IExpression parseExpression(String expression) {
+		
+			
+		IExpression result = null;
+		
+		// Try with BinaryOperation
+		final BinaryOperatorInfo operatorInfo = getBinaryOperatorInfo(expression);
+		if (operatorInfo != null) {
+			
+			final BinaryExpression binaryExpression = new BinaryExpression();
+			binaryExpression.setOperator(operatorInfo.getOperator());
+
+			final String leftOperandString = Expression.substring(0, operatorInfo.getIndex()-1, expression).trim();
+			
+			binaryExpression.setA(new UnaryExpression(leftOperandString));
+			
+			final String rightOperandString = Expression.substring(operatorInfo.getIndex()+1, expression).trim();
+			binaryExpression.setB(parseExpression(rightOperandString));
+			
+			result = binaryExpression;
+			
+		} else {
+		
+			result = new UnaryExpression(expression);
+		}
+		
+		return result;
+	}
+	
 	public int evaluate() throws ExpressionParseException {
 		
 		try {
-			final BinaryOperatorInfo operator = getBinaryOperatorInfo(expression);
-			if (operator != null) {
-				final String leftOperandString = Expression.substring(0, operator.getIndex()-1, expression).trim();
-				final String rightOperandString = Expression.substring(operator.getIndex()+1, expression).trim();
-				
-				final int a = Integer.parseInt(leftOperandString);
-				final int b = Integer.parseInt(rightOperandString);
-				
-				if (operator.getOperator() == '+') {
-					return a + b;
-				} else {
-					return a - b;
-				}
-			}
 			
-			final int result = Integer.parseInt(expression);
-			return result;
+			
+			final IExpression exp = parseExpression(expression);
+			
+			return exp.evaluate();
+			
 		}
 		catch(NumberFormatException ex) {
 			throw new ExpressionParseException(ex);

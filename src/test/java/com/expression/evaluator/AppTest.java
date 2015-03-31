@@ -1,5 +1,6 @@
 package com.expression.evaluator;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Assert;
 
@@ -62,5 +63,24 @@ public class AppTest
     	Assert.assertEquals(-2,  result);
     }
     
+    @Test
+    public void Should_evaluate_A_Sum_Expression_With_Two_Operators() throws ExpressionParseException {
+    	final Expression exp = new Expression("1 + 3 + 7");
+    	
+    	final int result = exp.evaluate();
+    	
+    	Assert.assertEquals(11, result);
+    }
+    
+    @Ignore
+    public void Should_evaluate_A_Diff_Expression_With_Two_Operators() throws ExpressionParseException {
+    	
+    	// NOTE: The evaluation order is wrong for difference.
+    	final Expression exp = new Expression("1 - 3 - 7");
+    	
+    	final int result = exp.evaluate();
+    	
+    	Assert.assertEquals(-9, result);
+    }
     
 }
